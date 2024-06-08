@@ -1,8 +1,13 @@
-const { defaults } = require('jest-config');
-
-/** @type {import('jest').Config} */
-const config = {
-	moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts', 'cts', 'js', 'ts', 'tsx'],
+module.exports = {
+	preset: 'ts-jest',
+	testEnvironment: 'jsdom',
+	transform: {
+		'^.+\\.tsx?$': ['ts-jest', { tsconfig: 'tsconfig.json' }],
+		'^.+\\.jsx?$': 'babel-jest',
+	},
+	moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+	testPathIgnorePatterns: ['<rootDir>/node_modules/', '<rootDir>/dist/'],
+	moduleNameMapper: {
+		'\\.(css|less|scss|sass)$': 'identity-obj-proxy',
+	},
 };
-
-module.exports = config;

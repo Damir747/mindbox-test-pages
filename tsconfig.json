@@ -17,12 +17,11 @@
 		"isolatedModules": true,
 		"noEmit": true,
 		"moduleResolution": "node",
-		"baseUrl": "./src",
-		"allowImportingTsExtensions": true,
+		"baseUrl": "./src"
 	},
 	"include": [
 		"**/*.ts",
 		"**/*.tsx",
 		"jest.config.js"
-	],
+	]
 }
