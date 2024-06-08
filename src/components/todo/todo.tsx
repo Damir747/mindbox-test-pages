@@ -49,10 +49,13 @@ const Todo: React.FC<TodoProps> = (props) => {
 					value={newName}
 					onChange={handleChange}
 					ref={editFieldRef}
+					data-testid={`todo-text-${props.id}`}
 				/>
 			</div>
 			<div className="btn-group">
 				<button
+					id={`button-cancel-${props.id}`}
+					data-testid={`button-cancel-${props.id}`}
 					type="button"
 					className="btn todo-cancel"
 					onClick={() => setEditing(false)}
@@ -60,7 +63,11 @@ const Todo: React.FC<TodoProps> = (props) => {
 					Cancel
 					<span className="visually-hidden">renaming {props.name}</span>
 				</button>
-				<button type="submit" className="btn btn__primary todo-edit">
+				<button
+					id={`button-save-${props.id}`}
+					data-testid={`button-save-${props.id}`}
+					type="submit"
+					className="btn btn__primary todo-edit">
 					Save
 					<span className="visually-hidden">new name for {props.name}</span>
 				</button>
@@ -83,6 +90,8 @@ const Todo: React.FC<TodoProps> = (props) => {
 			</div>
 			<div className="btn-group">
 				<button
+					id={`button-edit-${props.id}`}
+					data-testid={`button-edit-${props.id}`}
 					type="button"
 					className="btn"
 					onClick={() => setEditing(true)}
@@ -91,6 +100,8 @@ const Todo: React.FC<TodoProps> = (props) => {
 					Edit <span className="visually-hidden">{props.name}</span>
 				</button>
 				<button
+					id={`button-delete-${props.id}`}
+					data-testid={`button-delete-${props.id}`}
 					type="button"
 					className="btn btn__danger"
 					onClick={() => props.deleteTask(props.id)}

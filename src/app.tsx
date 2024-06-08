@@ -1,10 +1,11 @@
 import React, { useState, useRef, useEffect, ReactElement } from 'react';
-import { nanoid } from 'nanoid';
 
 import './app.css';
 import FilterButton from './components/filter-button/filter-button';
 import Form from './components/form/form';
 import Todo from './components/todo/todo';
+
+const { nanoid } = require('nanoid');
 
 interface Task {
 	id: string;

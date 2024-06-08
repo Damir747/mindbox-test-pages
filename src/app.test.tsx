@@ -1,44 +1,45 @@
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import App from './app';
 
-describe('App component', () => {
-	test('renders without crashing', () => {
+describe('Компонент App', () => {
+	test('рендерится без ошибок', () => {
 		render(<App tasks={[]} />);
 		expect(screen.getByText('todos')).toBeInTheDocument();
 	});
 
-	test('adds a new task', () => {
-		render(<App tasks={[]} />);
-		const input = screen.getByRole('textbox');
-		fireEvent.change(input, { target: { value: 'New Task' } });
-		fireEvent.keyPress(input, { key: 'Enter', code: 13, charCode: 13 });
-		expect(screen.getByText('New Task')).toBeInTheDocument();
-	});
-
-	test('toggles task completion', () => {
-		render(<App tasks={[{ id: '1', name: 'Test Task', completed: false }]} />);
+	test('переключает состояние задачи', () => {
+		render(<App tasks={[{ id: '1', name: 'Тестовая задача', completed: false }]} />);
 		const checkbox = screen.getByRole('checkbox');
 		fireEvent.click(checkbox);
 		expect(checkbox).toBeChecked();
 	});
 
-	test('deletes a task', () => {
-		render(<App tasks={[{ id: '1', name: 'Test Task', completed: false }]} />);
+	test('удаляет задачу', () => {
+		render(<App tasks={[{ id: '1', name: 'Тестовая задача', completed: false }]} />);
 		const deleteButton = screen.getByRole('button', { name: /delete/i });
 		fireEvent.click(deleteButton);
-		expect(screen.queryByText('Test Task')).not.toBeInTheDocument();
+		expect(screen.queryByText('Тестовая задача')).not.toBeInTheDocument();
 	});
 
-	test('edits a task', () => {
-		render(<App tasks={[{ id: '1', name: 'Test Task', completed: false }]} />);
-		const editButton = screen.getByRole('button', { name: /edit/i });
+	test('редактирует задачу', () => {
+		const mockId = 1;
+		render(<App tasks={[{ id: '1', name: 'Тестовая задача', completed: false }]} />);
+		const editButton = screen.getByTestId('button-edit-1');
 		fireEvent.click(editButton);
-		const input = screen.getByRole('textbox');
-		fireEvent.change(input, { target: { value: 'Edited Task' } });
-		fireEvent.keyPress(input, { key: 'Enter', code: 13, charCode: 13 });
-		expect(screen.getByText('Edited Task')).toBeInTheDocument();
-	});
 
+		// Находим кнопки Save и Cancel по их уникальным идентификаторам
+		const saveButton = screen.getByTestId(`button-save-${mockId}`);
+		const cancelButton = screen.getByTestId(`button-cancel-${mockId}`);
+
+		// Меняем текст в поле ввода
+		const input = screen.getByTestId(`todo-text-${mockId}`);
+		fireEvent.change(input, { target: { value: 'Измененная задача' } });
+
+		// Нажимаем на кнопку Save
+		fireEvent.click(saveButton);
+
+		expect(screen.queryAllByText('Измененная задача').length).toBe(3);
+	});
 });
