@@ -4,8 +4,7 @@ import './app.css';
 import FilterButton from './components/filter-button/filter-button';
 import Form from './components/form/form';
 import Todo from './components/todo/todo';
-
-const { nanoid } = require('nanoid');
+import { getIdNumber } from '../src/utils/utils';
 
 interface Task {
 	id: string;
@@ -39,7 +38,7 @@ const App: React.FC<AppProps> = (props) => {
 	const [filter, setFilter] = useState<string>("All");
 
 	function addTask(name: string): void {
-		const newTask: Task = { id: `todo-${nanoid()}`, name, completed: false };
+		const newTask: Task = { id: `todo-${getIdNumber(tasks)}`, name, completed: false };
 		setTasks([...tasks, newTask]);
 	}
 
@@ -68,6 +67,10 @@ const App: React.FC<AppProps> = (props) => {
 		setTasks(editedTaskList);
 	}
 
+	function clearCompleted(): void {
+		setTasks([...tasks.filter(el => !el.completed)]);
+	}
+
 	const taskList: ReactElement[] = tasks
 		.filter(FILTER_MAP[filter])
 		.map((task) => (
@@ -91,8 +94,8 @@ const App: React.FC<AppProps> = (props) => {
 		/>
 	));
 
-	const tasksNoun = taskList.length !== 1 ? "tasks" : "task";
-	const headingText = `${taskList.length} ${tasksNoun} remaining`;
+	const itemsNoun = taskList.length !== 1 ? "items" : "item";
+	const headingText = `${taskList.length} ${itemsNoun} left`;
 	const prevTaskLength = usePrevious(tasks.length);
 
 	useEffect(() => {
@@ -119,7 +122,12 @@ const App: React.FC<AppProps> = (props) => {
 						{filterList}
 					</div>
 				</div>
-				<div className='clear-completed'>Clear completed</div>
+				<button
+					id={`button-clear-completed`}
+					data-testid={`button-clear-completed`}
+					type="button"
+					className="btn todo-clear-completed"
+					onClick={clearCompleted}>Clear completed</button>
 			</footer>
 		</div>
 	);

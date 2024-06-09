@@ -1,3 +1,16 @@
+@font-face {
+	font-family: "MHeiHKS-Medium";
+	src: url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.eot");
+	src: url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.eot?#iefix")format("embedded-opentype"),
+		url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.woff")format("woff"),
+		url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.woff2")format("woff2"),
+		url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.ttf")format("truetype"),
+		url("../public/fonts/Web\ Fonts/755f15c62cec6b024d169136613759d3.svg#MHeiHKS-Medium")format("svg");
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 .app {
 	text-align: center;
 }
@@ -106,7 +119,8 @@ body {
 	background-color: #f5f5f5;
 	color: #4d4d4d;
 	font:
-		1.6rem/1.25 Arial,
+		1.6rem/1.25 MHeiHKS-Medium,
+		Arial,
 		sans-serif;
 	margin: 0 auto;
 	max-width: 68rem;
@@ -134,6 +148,7 @@ body {
 	text-transform: capitalize;
 }
 
+.btn.todo-clear-completed,
 .btn.toggle-btn {
 	border-color: #d3d3d3;
 	border-width: 1px;
@@ -286,6 +301,8 @@ body {
 }
 
 /* End general app styles */
+.todoapp {}
+
 .header {}
 
 .footer {
