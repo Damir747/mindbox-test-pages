@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect, ReactElement } from 'react';
-import '../src/app.css';
+import './app.css';
 import FilterButton from './components/filter-button/filter-button';
 import Form from './components/form/form';
 import Todo from './components/todo/todo';
-import { getIdNumber } from '../src/utils/utils';
+import { getIdNumber } from './utils/utils';
 
 interface Task {
 	id: string;
